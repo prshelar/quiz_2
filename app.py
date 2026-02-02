@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request
 import json
 import os
  
@@ -6,7 +6,7 @@ app = Flask(__name__)
  
 RESPONSES_FILE = "responses.json"
  
-# Load existing responses or create empty list
+# Ensure responses.json exists
 if not os.path.exists(RESPONSES_FILE):
     with open(RESPONSES_FILE, "w") as f:
         json.dump([], f)
@@ -17,7 +17,7 @@ def index():
  
 @app.route("/submit", methods=["POST"])
 def submit():
-    data = request.json  # get JSON data from JS
+    data = request.json
     if not data:
         return {"status": "error"}, 400
  
