@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Valentine Quiz 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  background: white;
+  width: 350px;
+  padding: 25px;
+  border-radius: 25px;
+  text-align: center;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+}
+.option { background:#ffe3ea; }
+#yes { background:#ff4d6d; color:white; }
+#no { background:#ccc; position:absolute; }
+</style>
+</head>
+
+<body>
+
+<div class="card" id="quiz">
+  <h2 id="question"></h2>
+  <div id="options"></div>
+</div>
+
+<script src="/static/hearts.js"></script>
+
+<script>
+let answers=[], i=0;
+const quiz=[
+ {q:"Who loves more? 💕",o:["Me","You","Both"]},
+ {q:"Who is cutest? 😌",o:["You","Me"]},
+ {q:"Ready for final question? 💖",o:["Yes"]}
+];
+
+function load(){
+ document.getElementById("question").innerText=quiz[i].q;
+ let opt=document.getElementById("options");
+ opt.innerHTML="";
+ quiz[i].o.forEach(x=>{
+  let b=document.createElement("button");
+  b.innerText=x; b.className="option";
+  b.onclick=()=>{answers.push({q:quiz[i].q,a:x});next();};
+  opt.appendChild(b);
+ });
+}
+function next(){ i++; i<quiz.length?load():final(); }
+function final(){
+ document.getElementById("quiz").innerHTML=`
+ <h2>Will you be my Valentine? 💘</h2>
+ <button id="yes">YES 💖</button>
+ <button id="no">NO</button>`;
+ document.getElementById("yes").onclick=()=>{
+  fetch("/save",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(answers)});
+  document.getElementById("quiz").innerHTML="<h2>Yay! 💕</h2>";
+ };
+ let no=document.getElementById("no");
+ no.onmouseover=()=>{no.style.left=Math.random()*80+"vw";no.style.top=Math.random()*80+"vh";};
+}
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<h2>💌 Quiz Answers</h2>
+
+<form method="post">
+  <input type="password" name="password" placeholder="Admin password">
+  <button>View</button>
+</form>
+
+<hr>
+
+{% for entry in data %}
+<h4>{{ entry.time }}</h4>
+<ul>
+{% for a in entry.answers %}
+<li>{{ a.q }} → <b>{{ a.a }}</b></li>
+{% endfor %}
+</ul>
+{% endfor %}
