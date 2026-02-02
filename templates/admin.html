@@ -1,17 +1,27 @@
-<h2>💌 Quiz Answers</h2>
-
-<form method="post">
-  <input type="password" name="password" placeholder="Admin password">
-  <button>View</button>
-</form>
-
-<hr>
-
-{% for entry in data %}
-<h4>{{ entry.time }}</h4>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Valentine Quiz</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; background: #fff0f5; }
+h2 { text-align: center; }
+li { margin-bottom: 10px; }
+hr { margin: 20px 0; border: 1px dashed #ccc; }
+</style>
+</head>
+<body>
+<h2>Responses</h2>
 <ul>
-{% for a in entry.answers %}
-<li>{{ a.q }} → <b>{{ a.a }}</b></li>
-{% endfor %}
+  {% for response in responses %}
+    <li>
+      {% for ans in response %}
+        <strong>{{ ans.question }}:</strong> {{ ans.answer }}<br>
+      {% endfor %}
+      <hr>
+    </li>
+  {% endfor %}
 </ul>
-{% endfor %}
+</body>
+</html>
