@@ -59,7 +59,7 @@ startBtn.onclick = () => { startBtn.style.display = 'none'; showQuestion(); };
 function showQuestion() {
   optionsEl.innerHTML = '';
   if(i >= quiz.length) {
-    questionEl.innerText = "Thanks for playing! 💖";
+    questionEl.innerText = "I knew you'd say YES! Thanks for playing! I love you 💖";
  
     // Send all answers to server
     fetch("/submit", {
